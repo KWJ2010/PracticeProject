@@ -23,23 +23,23 @@ namespace ConsoleProblems
         {
             #region Chapter 1
             // WriteHello();
-            // ThrowError();
+            //// ThrowError();
             // PrintCurrentDate();
-            // SquareRootPrint();
+            //SquareRootPrint();
             // SequencePrint();
             // AddTenYears();
             #endregion //Chapter 1
 
             #region Chapter 2
-            // PrintPrimitives();
-            // Ch2Example2();
-            // Ch2Example3();
-            // PrintingCharacters();
-            // NullableTypes();
-            // CompareTwoRealNumbers();
-            // InitilizeAndDeclareDifferentTytpes();
-            // PrintHeartShape();
-            // PrintTriangle();
+            //PrintPrimitives();
+            //Ch2Example2();
+            //Ch2Example3();
+            //PrintingCharacters();
+            //NullableTypes();
+            //CompareTwoRealNumbers();
+            //InitilizeAndDeclareDifferentTytpes();
+            //PrintHeartShape();
+            //PrintTriangle();
             #endregion //Chapter 2
 
             #region Chapter 3
@@ -49,8 +49,12 @@ namespace ConsoleProblems
             // CompoundOperators();
             // ExplicitTypeConversion();
             // Expressions();
-
+            // Ch3Exercise();
             #endregion //Chapter 3
+
+            #region Chapter 4
+
+            #endregion //Chapter 4
 
             Console.ReadKey(); //This is to keep the dialog from closing right away w/o using ctrl + F5
         }
@@ -508,67 +512,297 @@ namespace ConsoleProblems
             else return true;
 
         }
+        static bool IsDevideableBy5and7(int _int)
+        {
+            //Option 1
+            // if (_int % 5 == 0 && _int % 7 == 0) { return true; }
+            // else return false;
+
+            // Option 2
+            if (_int % 35 == 0) { return true; }
+            else return false;
+        }
+        static bool IsThirdDigit7(int _int)
+        {
+            int firstStep = _int / 100;
+            if (firstStep % 10 == 7) { return true; }
+            else return false;
+        }
+        static void CheckDigitLocation()
+        {
+            Console.WriteLine("Enter number to be check if the third digit (right to left) is 7");
+            int CheckDigits = 0;
+            try { CheckDigits = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); }
+            Console.WriteLine(IsThirdDigit7(CheckDigits));
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static void CheckDigitBit()
+        {
+            Console.WriteLine("Enter number to be check if the third bit is 0 or 1");
+            int CheckBits = 0;
+            try { CheckBits = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); }
+            bool IsBit3 = (CheckBits & 8) != 0;
+            if (IsBit3) { Console.WriteLine("The third bit of " + CheckBits + " is 1"); }
+            else Console.WriteLine("The third bit of " + CheckBits + " is 0");
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static void CalculateAreaOfTrapizoid()
+        {
+            Console.WriteLine("Enter number for length of side a");
+            int _a = 0;
+            try { _a = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); CalculateAreaOfTrapizoid(); }
+
+            Console.WriteLine("Enter number for length of side b");
+            int _b = 0;
+            try { _b = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); CalculateAreaOfTrapizoid(); }
+
+            Console.WriteLine("Enter number for height of side h");
+            int _h = 0;
+            try { _h = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); CalculateAreaOfTrapizoid(); }
+
+            Console.WriteLine("The area is: " + ((_a + _b) * _h / 2));
+
+            if (IsContinueThisProgram())Ch3Exercise();
+        }
+        static void CalculatePrimeterAndAreaRectangle()
+        {
+            Console.WriteLine("Enter number for length of side a");
+            int _a = 0;
+            try { _a = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); CalculatePrimeterAndAreaRectangle(); }
+
+            Console.WriteLine("Enter number for length of side b");
+            int _b = 0;
+            try { _b = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); CalculatePrimeterAndAreaRectangle(); }
+
+            int perimeter = (_a * 2) + (_b * 2);
+            int area = _a * _b;
+            Console.WriteLine("the perimeter is: " + perimeter + ", The area is: " + area);
+
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static void CalculatMoonGravity()
+        {
+            Console.WriteLine("Enter weight for human on Earth");
+            int _mass = 0;
+            try { _mass = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); CalculatMoonGravity(); }
+            Console.WriteLine("The humans weight on the moon would be " + (_mass * 0.17));
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static void CircleCheck(bool isRectangleToo)
+        {
+            Console.WriteLine("Enter x coordinate");
+            int _x = 0;
+            try { _x = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); Ch3Exercise(); }
+
+            Console.WriteLine("Enter y coordinate");
+            int _y = 0;
+            try { _y = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); Ch3Exercise(); }
+            if (((_x * _x) + (_y * _y)) <= 5 * 5)
+            {
+                Console.WriteLine("the point  (" + _x + "," + _y + ") is within the circle of R = 5");
+                if (isRectangleToo)
+                {
+                    if (_x >= -1 && _x <= 5 && _y >= 1 && _y <= 5)
+                    {
+                        Console.WriteLine("the point  (" + _x + "," + _y + ") is within the rectangle [{ -1, 1}, { 5, 5}] ");
+                    }
+                    else Console.WriteLine("the point  (" + _x + "," + _y + ") is outside the rectangle [{ -1, 1}, { 5, 5}] ");
+                }
+            }
+            else
+            {
+                Console.WriteLine("the point  (" + _x + "," + _y + ") is outside the circle of R = 5");
+                if (isRectangleToo) 
+                {
+                    if (_x >= -1 && _x <= 5 && _y >= 1 && _y <= 5)
+                    {
+                        Console.WriteLine("the point  (" + _x + "," + _y + ") is within the rectangle [{ -1, 1}, { 5, 5}] ");
+                    }
+                    else Console.WriteLine("the point  (" + _x + "," + _y + ") is outside the rectangle [{ -1, 1}, { 5, 5}] ");
+                }
+            }
+
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static void Chapter3Problem10()
+        {
+            Console.WriteLine("Enter a 4 digit number");
+            int _fourDigits= 0;
+            try { _fourDigits = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type a four digit integer"); Chapter3Problem10(); }
+            int a = _fourDigits % 10;
+            int b = (_fourDigits / 10) % 10;
+            int c = (_fourDigits / 100) % 10;
+            int d = (_fourDigits / 1000) % 10;
+            int sum = a + b + c + d;
+            Console.WriteLine("The sum of the digits is " + sum);
+            Console.WriteLine( d.ToString() + c.ToString() + b.ToString() + a.ToString());
+            Console.WriteLine(d.ToString() + a.ToString() + b.ToString() + c.ToString());
+            Console.WriteLine(a.ToString() + c.ToString() + b.ToString() + d.ToString());
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static void Chapter3Problem11()
+        {
+            Console.WriteLine("Enter a number");
+            int _n = 0;
+            try { _n = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); Chapter3Problem11(); }
+            Console.WriteLine("Enter a position");
+            int _p = 0;
+            try { _p = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); Chapter3Problem11(); }
+
+            int i = 1; // 00000001
+            int mask = i << _p; // Move the 1-st bit left by p positions 
+            // If i & mask are positive then the p-th bit of n is 1
+            Console.WriteLine((_n & mask) != 0 ? 1 : 0);
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static void Chapter3Problem12()
+        {
+            Console.WriteLine("Enter a number");
+            int _n = 0;
+            try { _n = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); Chapter3Problem12(); }
+            Console.WriteLine("Enter a position");
+            int _p = 0;
+            try { _p = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); Chapter3Problem12(); }
+
+            if (IsbitPofV0(_n, _p)) { Console.WriteLine("The bit on position " + _p + " is 0"); }
+            else { Console.WriteLine("The bit on position " + _p + " is 1"); }
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static bool IsbitPofV0(int v, int p)
+        {
+            int i = 1; // 00000001
+            int mask = i << p; // Move the 1-st bit left by p positions 
+            // If i & mask are positive then the p-th bit of n is 1
+            if (v == 0 && i == 0) return true;
+            else return false;
+        }
+        static void Chapter3Problem13()
+        {
+
+        }
+        static void CheckIfPrime()
+        {
+            Console.WriteLine("Enter a number between 1 and 100 to check if it is prime");
+            int _n = 0;
+            try { _n = int.Parse(Console.ReadLine()); }
+            catch { Console.WriteLine("Please type an integer"); CheckIfPrime(); }
+            bool IsPrime = CheckIsPrime(_n);
+            if (IsPrime) Console.WriteLine(_n + " is a prime number");
+            else Console.WriteLine(_n + " is not a prime number");
+
+            if (IsContinueThisProgram()) Ch3Exercise();
+        }
+        static bool CheckIsPrime(int number)
+        {
+            if (number == 1) return false;
+            if (number == 2) return true;
+            for (int i = 2; i <= Math.Ceiling(Math.Sqrt(number)); ++i)
+            {
+                if (number % i == 0) return false;
+            }
+            return true;
+        }
         /// <summary>
         /// Excercises 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16
         /// </summary>
         static void Ch3Exercise()
         {
             // 1.Write an expression that checks whether an integer is odd or even.
-            Console.WriteLine(IsOdd(5));
+            //Console.WriteLine(IsOdd(5));
 
             //2.Write a Boolean expression that checks whether a given integer is divisible by both 5 and 7, without a remainder.
-
+            //Console.WriteLine("Enter number to be check if divisible by both 5 and 7");
+            //int devideme = 0;
+            //try { devideme = int.Parse(Console.ReadLine()); }
+            //catch { Console.WriteLine("Please type an Integer"); }
+            //Console.WriteLine(IsDevideableBy5and7(devideme));
+            //Ch3Exercise();
 
             // 3.Write an expression that looks for a given integer if its third digit (right to left) is 7.
+            // CheckDigitLocation();
 
 
             //4.Write an expression that checks whether the third bit in a given integer is 1 or 0.
-
+            //CheckDigitBit();
 
             //5.Write an expression that calculates the area of a trapezoid by given sides a, b and height h.
-
+            //CalculateAreaOfTrapizoid();
 
             //6.Write a program that prints on the console the perimeter and the area of a rectangle by given side and height entered by the user.
-
+            //CalculatePrimeterAndAreaRectangle();
 
             //7.The gravitational field of the Moon is approximately 17 % of that on the Earth. Write a program that calculates the weight of a man on the moon by a given weight on the Earth.
-
+            //CalculatMoonGravity();
 
             //8.Write an expression that checks for a given point { x, y}
             // if it is within the circle K({ 0, 0}, R = 5). Explanation: the point { 0, 0} is the center of the circle and 5 is the radius.
-
+            // CircleCheck(false);
 
             //9.Write an expression that checks for given point { x, y}
             // if it is within the circle K({ 0, 0}, R = 5) and out of the rectangle[{ -1, 1}, { 5, 5}]. Clarification: for the rectangle the lower left and the upper right corners are given.
-
+            //CircleCheck(true);
 
             //10.Write a program that takes as input a four - digit number in format abcd(e.g. 2011) and performs the following actions:
             //-Calculates the sum of the digits(in our example 2 + 0 + 1 + 1 = 4).
             //- Prints on the console the number in reversed order: dcba(in our example 1102).
             //- Puts the last digit in the first position: dabc(in our example 1201).
             //- Exchanges the second and the third digits: acbd(in our example 2101).
+            //Chapter3Problem10();
 
             //11.We are given a number n and a position p.Write a sequence of operations that prints the value of the bit on the position p in the number (0 or 1). Example: n = 35, p = 5-> 1.Another example: n = 35, p = 6-> 0.
-            
-            
+            //Chapter3Problem11();
+
             //12.Write a Boolean expression that checks if the bit on position p in the integer v has the value 1.Example v = 5, p = 1-> false.
-            
-            
-            //13.We are given the number n, the value v(v = 0 or 1) and the position p. write a sequence of operations that changes the value of n, so the bit on the position p has the value of v. Example: n = 35, p = 5, v = 0->n = 3.Another example: n = 35, p = 2, v = 1->n = 39.
-            
-            
+            //Chapter3Problem12();
+
+
+            //13.We are given the number n, the value v(v = 0 or 1) and the position p. write a sequence of operations that changes the value of n, so the bit on the position p has the value of v.
+            //Example: n = 35, p = 5, v = 0->n = 3.Another example: n = 35, p = 2, v = 1->n = 39.
+            //skipped //TODO: this problem
+
             //14.Write a program that checks if a given number n(1 < n < 100) is a prime number (i.e.it is divisible without remainder only to itself and 1).
-           
-            
+            //CheckIfPrime();
+
             //15. * Write a program that exchanges the values of the bits on positions 3, 4 and 5 with bits on positions 24, 25 and 26 of a given 32 - bit unsigned integer.
-           
-            
+            //skipped //TODO: this problem
+
             //16. * Write a program that exchanges bits { p, p + 1, …, p + k - 1}
             //            with bits { q, q + 1, …, q + k - 1}
             //            of a given 32 - bit unsigned integer.
+            //skipped //TODO: this problem
+
         }
-
-
         #endregion //Chapter 3 Operators and Expressions
+
+        #region Chapter 4 Console Input and Output
+
+        #endregion //Chapter 4 Console Input and Output
+
+
+        static bool IsContinueThisProgram()
+        {
+            Console.WriteLine();
+            Console.WriteLine("Do you wish to repeat this program? (y or n)");
+            string _Answer = "";
+            try { _Answer = Console.ReadLine(); Console.WriteLine();}
+            catch { Console.WriteLine("Please type a y or n"); IsContinueThisProgram(); }
+            if (_Answer == "y" || _Answer == "Y" || _Answer == "yes" || _Answer == "Yes") return true;
+            else return false;
+        }
     }
 }
