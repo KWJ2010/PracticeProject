@@ -1,0 +1,40 @@
+﻿<Window x:Class="PasswordHasher.HashView"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:PasswordHasher"
+        WindowStartupLocation="CenterScreen"
+        Title="{Binding ApplicationTitle}" 
+        SnapsToDevicePixels="True"
+        Height="250" 
+        Width="420"
+        >
+    
+    <Border>
+        <StackPanel Orientation="Vertical" Margin="11">
+            <TextBlock Text="Enter your password:"/>
+            <TextBox x:Name="PlainTextPassword" Height="25" HorizontalAlignment="Stretch" Text="{Binding Path=OriginalPassword, UpdateSourceTrigger=PropertyChanged}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="Enter a password salt below:" Margin="0,10,20,0"/>
+                <!--<Button Content="Or click here to randomly generate one" Width="auto" Command="{Binding Path=GenerateSaltCommand}"/>-->
+                <!--TODO: Add salt random string generator-->
+            </StackPanel>
+            <TextBox x:Name="Salt" Height="25" HorizontalAlignment="Stretch" Text="{Binding Path=Salt, UpdateSourceTrigger=PropertyChanged}"/>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Button Content="Get Hash" Grid.Column="0" Command="{Binding Path=GenerateHashCommand}"/>
+                <Button Content="Clear TextBox" Grid.Column="1" Command="{Binding Path=ClearTextBoxCommand}"/>
+            </Grid>
+            <TextBlock Text="Hashed String:" Margin="0,10,0,0"/>
+            <TextBox x:Name="HashedString" Text="{Binding Path=GeneratedHash, Mode=OneWay}"
+                     HorizontalAlignment="Stretch" 
+                     MinHeight="25" 
+                     Height="auto" 
+                     />
+        </StackPanel>
+    </Border>
+</Window>

@@ -19,6 +19,13 @@ namespace ConsoleProblems
          * By the end of the 1000+ page book it will also be interesting to see how this project has changed.
          */
 
+        #region Variables for Chapter 10
+        static int numberOfLoops;
+        static int numberOfIterations;
+        static int[] loops;
+        static long[] numbers;
+        #endregion // Variables for Chapter 10
+
         static void Main(string[] args)
         {
             #region Chapter 1
@@ -53,8 +60,19 @@ namespace ConsoleProblems
             #endregion //Chapter 3
 
             #region Chapter 4
-
+            //skipped for now
             #endregion //Chapter 4
+
+            /* Skipped ahead a bit to Recursion in chapter 10*/
+
+            #region Chapter 10
+            //FactoralExample1();
+            //FactoralExample2();
+            // RecursiveNestedLoopExample();
+            // IterativeNestedLoopExample();
+            //BadFibonacciExample();
+            //FibonacciEfficentRecursionExample();
+            #endregion // Chapter 10
 
             Console.ReadKey(); //This is to keep the dialog from closing right away w/o using ctrl + F5
         }
@@ -567,7 +585,7 @@ namespace ConsoleProblems
 
             Console.WriteLine("The area is: " + ((_a + _b) * _h / 2));
 
-            if (IsContinueThisProgram())Ch3Exercise();
+            if (IsContinueThisProgram()) Ch3Exercise();
         }
         static void CalculatePrimeterAndAreaRectangle()
         {
@@ -622,7 +640,7 @@ namespace ConsoleProblems
             else
             {
                 Console.WriteLine("the point  (" + _x + "," + _y + ") is outside the circle of R = 5");
-                if (isRectangleToo) 
+                if (isRectangleToo)
                 {
                     if (_x >= -1 && _x <= 5 && _y >= 1 && _y <= 5)
                     {
@@ -637,7 +655,7 @@ namespace ConsoleProblems
         static void Chapter3Problem10()
         {
             Console.WriteLine("Enter a 4 digit number");
-            int _fourDigits= 0;
+            int _fourDigits = 0;
             try { _fourDigits = int.Parse(Console.ReadLine()); }
             catch { Console.WriteLine("Please type a four digit integer"); Chapter3Problem10(); }
             int a = _fourDigits % 10;
@@ -646,7 +664,7 @@ namespace ConsoleProblems
             int d = (_fourDigits / 1000) % 10;
             int sum = a + b + c + d;
             Console.WriteLine("The sum of the digits is " + sum);
-            Console.WriteLine( d.ToString() + c.ToString() + b.ToString() + a.ToString());
+            Console.WriteLine(d.ToString() + c.ToString() + b.ToString() + a.ToString());
             Console.WriteLine(d.ToString() + a.ToString() + b.ToString() + c.ToString());
             Console.WriteLine(a.ToString() + c.ToString() + b.ToString() + d.ToString());
             if (IsContinueThisProgram()) Ch3Exercise();
@@ -793,7 +811,148 @@ namespace ConsoleProblems
 
         #endregion //Chapter 4 Console Input and Output
 
-
+        #region Chapter 10 Recursion
+        static decimal FactorialRecursion(int n)
+        {
+            // The bottom of the recursion
+            if (n == 0)
+            {
+                return 1;
+            }
+            // Recursive call: the method calls itself
+            else
+            {
+                return n * FactorialRecursion(n - 1);
+            }
+        }
+        static decimal FactorialIteration(int n)
+        {
+            decimal result = 1;
+            for (int i = 1; i <= n; i++)
+            {
+                result = result * i;
+            }
+            return result;
+        }
+        static void FactoralExample1()
+        {
+            Console.Write("n = ");
+            int n = int.Parse(Console.ReadLine());
+            decimal factorial = FactorialRecursion(n);
+            Console.WriteLine("{0}! = {1}", n, factorial);
+            if (IsContinueThisProgram()) FactoralExample1();
+        }
+        static void FactoralExample2()
+        {
+            Console.Write("n = ");
+            int n = int.Parse(Console.ReadLine());
+            decimal factorial = FactorialIteration(n);
+            Console.WriteLine("{0}! = {1}", n, factorial);
+            if (IsContinueThisProgram()) FactoralExample2();
+        }
+        static void RecursiveNestedLoopExample()
+        {
+            Console.Write("N = ");
+            numberOfLoops = int.Parse(Console.ReadLine());
+            Console.Write("K = ");
+            numberOfIterations = int.Parse(Console.ReadLine());
+            loops = new int[numberOfLoops];
+            NestedLoopsRecursive(0);
+        }
+        #endregion // Chapter 10 Recursion
+        static void NestedLoopsRecursive(int currentLoop)
+        {
+            if (currentLoop == numberOfLoops)
+            {
+                PrintLoops();
+                return;
+            }
+            for (int counter = 1; counter <= numberOfIterations; counter++)
+            {
+                loops[currentLoop] = counter;
+                NestedLoopsRecursive(currentLoop + 1);
+            }
+        }
+        static void IterativeNestedLoopExample()
+        {
+            Console.Write("N = ");
+            numberOfLoops = int.Parse(Console.ReadLine());
+            Console.Write("K = ");
+            numberOfIterations = int.Parse(Console.ReadLine());
+            loops = new int[numberOfLoops];
+            NestedLoopsIterative();
+        }
+        static void NestedLoopsIterative()
+        {
+            InitLoops();
+            int currentPosition;
+            while (true)
+            {
+                PrintLoops();
+                currentPosition = numberOfLoops - 1;
+                loops[currentPosition] = loops[currentPosition] + 1;
+                while (loops[currentPosition] > numberOfIterations)
+                {
+                    loops[currentPosition] = 1;
+                    currentPosition--;
+                    if (currentPosition < 0)
+                    {
+                        return;
+                    }
+                    loops[currentPosition] = loops[currentPosition] + 1;
+                }
+            }
+        }
+        static void InitLoops()
+        {
+            for (int i = 0; i < numberOfLoops; i++)
+            {
+                loops[i] = 1;
+            }
+        }
+        static void PrintLoops()
+        {
+            for (int i = 0; i < numberOfLoops; i++)
+            {
+                Console.Write("{0} ", loops[i]);
+            }
+            Console.WriteLine();
+        }
+        static void BadFibonacciExample()
+        {
+            //O^n
+            Console.Write("n = ");
+            int n = int.Parse(Console.ReadLine());
+            long result = FibBad(n);
+            Console.WriteLine("fib({0}) = {1}", n, result);
+        }
+        static void FibonacciEfficentRecursionExample()
+        {
+            //O+n 
+            Console.Write("n = ");
+            int n = int.Parse(Console.ReadLine());
+            numbers = new long[n + 2];
+            numbers[1] = 1;
+            numbers[2] = 1;
+            long result = Fib(n);
+            Console.WriteLine("fib({0}) = {1}", n, result);
+        }
+        static long FibBad(int n)
+        {
+            if (n <= 2)
+            {
+                return 1;
+            }
+            return FibBad(n - 1) + FibBad(n - 2);
+        }
+        static long Fib(int n)
+        {
+            if (0 == numbers[n])
+            {
+                numbers[n] = Fib(n - 1) + Fib(n - 2);
+            }
+            return numbers[n];
+        }
         static bool IsContinueThisProgram()
         {
             Console.WriteLine();
