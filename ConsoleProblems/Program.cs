@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace ConsoleProblems
@@ -76,14 +77,38 @@ namespace ConsoleProblems
 
 
             // FindMultiplesInRange();
-
-            CallBubbleSort();
-
-            CodilityQuestion();
-
+            //  CallBubbleSort();
+            //  CodilityPracticeQuestion();
+            CallCodilityRealQuestion1();
+           // CallCodilityRealQuestion2();
 
             Console.ReadKey(); //This is to keep the dialog from closing right away w/o using ctrl + F5
         }
+        static void CallCodilityRealQuestion1()
+        {
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+        static void CallCodilityRealQuestion2()
+        {
+
+        }
+
+
+
+
+
 
         static void CallBubbleSort()
         {
@@ -137,10 +162,30 @@ namespace ConsoleProblems
 
         //}
 
-        static void CodilityQuestion()
+        static void CodilityPracticeQuestion()
         {
+            BinaryGap(456546);
+        }
 
-
+        static int BinaryGap(int N)
+        {
+            string binary = Convert.ToString(N, 2);
+            Regex regex = new Regex("1(.*)1");
+            Match chars = regex.Match(binary);
+            string binaryAfterRegex = chars.Value;
+            string[] gaps = binaryAfterRegex.Split('1');
+            int t = 0;
+            foreach (string txt in gaps)
+            {
+                if ((string.IsNullOrEmpty(txt)) == false)
+                {
+                    while (txt.Length > t)
+                    {
+                        t = txt.Length;
+                    }
+                }
+            }
+            return t;
         }
 
 
