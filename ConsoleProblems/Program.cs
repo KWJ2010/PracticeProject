@@ -74,8 +74,75 @@ namespace ConsoleProblems
             //FibonacciEfficentRecursionExample();
             #endregion // Chapter 10
 
+
+            // FindMultiplesInRange();
+
+            CallBubbleSort();
+
+            CodilityQuestion();
+
+
             Console.ReadKey(); //This is to keep the dialog from closing right away w/o using ctrl + F5
         }
+
+        static void CallBubbleSort()
+        {
+            Console.WriteLine("list of integers to be sorted");
+            int[] a = { 99, 50, 96, 770, 89, 1000, 357, 821, 362, 322, 632, 716, 513, 297, 944, 81, 84, 234, 400, 840, 902, 238, 782, 760, 910, 74, 174, 833, 570, 580, 862, 519, 127, 831, 248, 245, 49, 549, 183, 628, 891, 685, 51, 463, 339, 710, 546, 736, 517, 957, 120, 787, 650, 361, 464, 483, 982, 275, 348, 929, 753, 524, 810, 184, 825, 861, 888, 512, 54, 969, 715, 29, 541, 758, 707, 553, 748, 898, 279, 158, 783, 427, 593, 866, 934, 930, 651, 909, 318, 175, 631, 460, 409, 663, 603, 83, 590, 814, 966, 634, 70, 280, 989, 401, 368, 596, 287, 242, 893, 978, 124, 610, 435, 147, 224, 237, 913, 332, 99, 198, 817, 273, 809, 820, 996, 722, 611, 518, 257, 34, 281, 725, 143, 37, 867, 578, 653, 447, 637, 166, 599, 5, 601, 161, 87, 231, 640, 232, 494, 849, 14, 859, 884, 379, 378, 829, 420, 365, 873, 548, 904, 933, 958, 467, 167, 501, 298, 720, 680, 258, 602, 747, 735, 871, 459, 687, 403, 82, 566, 728, 269, 514, 543, 142, 612, 848, 921, 104, 836, 85, 103, 790, 42, 223, 396, 564, 417, 90, 236, 61, 705, 792, 837, 994, 803, 619, 528, 752, 717, 333, 308, 567, 647, 779, 550, 731, 565, 471, 381, 679, 105, 260, 504, 613, 807, 134, 744, 887, 138, 300, 979, 310, 438, 561, 48, 53, 487, 511, 493, 589, 244, 903, 520, 360, 697, 31, 122, 765, 552, 328 };
+            BubbleSort(a);
+        }
+        static void BubbleSort<T>(IList<T> list)
+        {
+            BubbleSort<T>(list, Comparer<T>.Default);
+        }
+
+        static void BubbleSort<T>(IList<T> list, IComparer<T> comparer)
+        {
+            bool stillGoing = true;
+            while (stillGoing)
+            {
+                stillGoing = false;
+                for (int i = 0; i < list.Count - 1; i++)
+                {
+                    T x = list[i];
+                    T y = list[i + 1];
+                    if (comparer.Compare(x, y) > 0)
+                    {
+                        list[i] = y;
+                        list[i + 1] = x;
+                        stillGoing = true;
+                    }
+                }
+            }
+        }
+        //static void BubbleSort(int[] A)
+        //{
+        //    IComparer<T> comparer;
+        //    bool StillSorting = true;
+        //    while (StillSorting)
+        //    {
+        //        StillSorting = false;
+        //        for (int i = 0; i < A.Length-1; i++)
+        //        {
+        //            int x = A[i];
+        //            int y = A[i + 1];
+        //            if (comparer.Compare(x, y) > 0)
+        //            {
+        //                A[i] = y;
+        //                A[i + 1] = x;
+        //                StillSorting = true;
+        //            }
+        //        }
+        //    }
+
+        //}
+
+        static void CodilityQuestion()
+        {
+
+
+        }
+
 
         #region Chapter 1 Introduction to Programming
         /// <summary>
@@ -859,7 +926,7 @@ namespace ConsoleProblems
             loops = new int[numberOfLoops];
             NestedLoopsRecursive(0);
         }
-        #endregion // Chapter 10 Recursion
+
         static void NestedLoopsRecursive(int currentLoop)
         {
             if (currentLoop == numberOfLoops)
@@ -953,6 +1020,8 @@ namespace ConsoleProblems
             }
             return numbers[n];
         }
+        #endregion // Chapter 10 Recursion
+
         static bool IsContinueThisProgram()
         {
             Console.WriteLine();
@@ -963,5 +1032,36 @@ namespace ConsoleProblems
             if (_Answer == "y" || _Answer == "Y" || _Answer == "yes" || _Answer == "Yes") return true;
             else return false;
         }
+
+
+        static void FindMultiplesInRange()
+        {
+            Console.WriteLine("Return the number of integers within the range [A..B] that are divisible by K.");
+            Console.Write("A = ");
+            int a = int.Parse(Console.ReadLine());
+            Console.Write("B = ");
+            int b = int.Parse(Console.ReadLine());
+            Console.Write("K = ");
+            int k = int.Parse(Console.ReadLine());
+
+            int count = solution(a,b,k);
+
+            Console.WriteLine("Within the range[" + a.ToString() + ".." + b.ToString() + "] There are " + count.ToString() + " that are divisible by " + k.ToString() + ".");
+            if (IsContinueThisProgram()) FindMultiplesInRange();
+        }
+
+        /// <summary>
+        /// Return the number of integers within the range [A..B] that are divisible by K.
+        /// </summary>
+        /// <param name="A"></param>
+        /// <param name="B"></param>
+        /// <param name="K"></param>
+        /// <returns></returns>
+        static int solution(int A, int B, int K)
+        {
+            int count = (B / K - A / K) + (A % K == 0 ? 1 : 0);
+            return count;
+        }
+
     }
 }
