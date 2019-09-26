@@ -41,10 +41,12 @@ namespace PasswordHasher
         {
             UTF8Encoding utf8 = new UTF8Encoding();
             byte[] textWithSaltBytes = utf8.GetBytes(string.Concat(OrignalPassword, Salt));
-            HashAlgorithm hasher = new SHA1CryptoServiceProvider();
-            byte[] hashedBytes = hasher.ComputeHash(textWithSaltBytes);
-            hasher.Clear();
-            hashedPasswordResult = Convert.ToBase64String(hashedBytes);
+            using (HashAlgorithm hasher = new SHA1CryptoServiceProvider())
+            {
+                byte[] hashedBytes = hasher.ComputeHash(textWithSaltBytes);
+                hasher.Clear();
+                hashedPasswordResult = Convert.ToBase64String(hashedBytes);
+            }
         }
         #endregion Helper Methods
     }
