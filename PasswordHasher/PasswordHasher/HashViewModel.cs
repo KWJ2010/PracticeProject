@@ -21,6 +21,7 @@ namespace PasswordHasher
                 return generateHashCommand;
             }
         }
+
         public ICommand ClearTextBoxCommand
         {
             get
@@ -32,12 +33,25 @@ namespace PasswordHasher
                 return clearTextBoxCommand;
             }
         }
+
+        public ICommand GenerateSaltCommand
+        {
+            get
+            {
+                if (generateSaltCommand == null)
+                {
+                    generateSaltCommand = new DelegateCommand(GenerateSalt);
+                }
+                return generateSaltCommand;
+            }
+        }
         #endregion // Commands
 
         #region Private Members
         private HashModel hashingModel;
         private DelegateCommand generateHashCommand;
         private DelegateCommand clearTextBoxCommand;
+        private DelegateCommand generateSaltCommand;
         private string applicationTitle;
         private string generatedHash;
         #endregion // Private Members
@@ -47,20 +61,24 @@ namespace PasswordHasher
         {
             get { return applicationTitle; }
         }
+
         public string OriginalPassword
         {
             get { return hashingModel.OrignalPassword; }
             set { hashingModel.OrignalPassword = value; }
         }
+
         public string Salt
         {
             get { return hashingModel.Salt; }
             set { hashingModel.Salt = value; }
         }
+
         public string Result
         {
             get { return hashingModel.HashedPassword; }
         }
+
         public string GeneratedHash
         {
             get { return generatedHash; }
@@ -70,6 +88,8 @@ namespace PasswordHasher
                 OnPropertyChanged("GeneratedHash");
             }
         }
+
+        public string GeneratedSalt { get; set; }
         #endregion // Public Fields
 
         #region Constructor
@@ -92,6 +112,7 @@ namespace PasswordHasher
             OnPropertyChanged("Salt");
             GeneratedHash = string.Empty;
         }
+
         private bool CanGenerateHash()
         {
             if (!string.IsNullOrEmpty(this.OriginalPassword) && !string.IsNullOrEmpty(this.Salt)) return true;
@@ -102,6 +123,11 @@ namespace PasswordHasher
         {
             hashingModel.GeneratingResult();
             GeneratedHash = Result;
+        }
+
+        private void GenerateSalt()
+        {
+            GeneratedSalt = "RANDOM STRING";
         }
         #endregion // Private Methods
     }

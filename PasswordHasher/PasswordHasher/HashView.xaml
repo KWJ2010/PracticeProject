@@ -13,23 +13,27 @@
     
     <Border>
         <StackPanel Orientation="Vertical" Margin="11">
-            <TextBlock Text="Enter your password:"/>
+            <TextBlock Text="Enter your password:" Margin="0,0,0,1"/>
             <TextBox x:Name="PlainTextPassword" Height="25" HorizontalAlignment="Stretch" Text="{Binding Path=OriginalPassword, UpdateSourceTrigger=PropertyChanged}"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Enter a password salt below:" Margin="0,10,20,0"/>
-                <!--<Button Content="Or click here to randomly generate one" Width="auto" Command="{Binding Path=GenerateSaltCommand}"/>-->
-                <!--TODO: Add salt random string generator-->
-            </StackPanel>
+            <Grid Margin="0,10,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Enter a password salt below:" Grid.Column="0" Margin="0,6,5,1" />
+                <Button Content="Generate a password salt" Grid.Column="1" Margin="5,2,5,2" Command="{Binding GenerateSaltCommand}"/>
+
+            </Grid>
             <TextBox x:Name="Salt" Height="25" HorizontalAlignment="Stretch" Text="{Binding Path=Salt, UpdateSourceTrigger=PropertyChanged}"/>
             <Grid Margin="0,10,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button Content="Get Hash" Grid.Column="0" Command="{Binding Path=GenerateHashCommand}"/>
-                <Button Content="Clear TextBox" Grid.Column="1" Command="{Binding Path=ClearTextBoxCommand}"/>
+                <Button Content="Get Hash" Grid.Column="0" Margin="5,1,5,1" Command="{Binding Path=GenerateHashCommand}"/>
+                <Button Content="Clear TextBox" Grid.Column="1" Margin="5,1,5,1" Command="{Binding Path=ClearTextBoxCommand}"/>
             </Grid>
-            <TextBlock Text="Hashed String:" Margin="0,10,0,0"/>
+            <TextBlock Text="Hashed String:" Margin="0,10,0,1"/>
             <TextBox x:Name="HashedString" Text="{Binding Path=GeneratedHash, Mode=OneWay}"
                      HorizontalAlignment="Stretch" 
                      MinHeight="25" 
